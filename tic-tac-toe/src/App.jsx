@@ -56,6 +56,12 @@ function App() {
     return null
   }
 
+  const resetGame = () => {
+    setBoard(Array(9).fill(null))
+    turn(TURNS.X)
+    setWinner(null)
+  }
+
   const updateBoard = (index) => {
 
     if (board[index] || winner) return 
@@ -100,6 +106,29 @@ function App() {
             {TURNS.O}
           </Square>
         </section>
+
+        {
+          winner !== null && (
+            <section className='winner'>
+              <div className='text'>
+                <h2>
+                  {
+                    winner === false
+                      ? 'tie'
+                      : 'winner'
+                  }
+                </h2>
+                <header className='win'>
+                  {winner && <Square>{winner}</Square>}
+                </header>
+
+                <footer>
+                  <button onClick={resetGame}>Play again?</button>
+                </footer>
+              </div>
+            </section>
+          )
+        }
       </main>
   )
 }
